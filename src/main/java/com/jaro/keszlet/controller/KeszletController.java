@@ -1,14 +1,15 @@
-package com.jaro.keszlet;
+package com.jaro.keszlet.controller;
 
-import lombok.RequiredArgsConstructor;
+import com.jaro.keszlet.repository.KeszletRepository;
+import com.jaro.keszlet.model.Product;
+import com.jaro.keszlet.model.PruductDto;
+import com.jaro.keszlet.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class KeszletController {
     }
 
     @PostMapping("/product")
-    public String createProduct( PruductDto pruductDto, BindingResult result, Model model) {
+    public String createProduct(PruductDto pruductDto, BindingResult result, Model model) {
         Product product = new Product();
         product.setNev(pruductDto.getNev());
         product.setAr(pruductDto.getAr());
@@ -48,5 +49,11 @@ public class KeszletController {
         keszletRepository.save(product);
         return "redirect:/";
     }
+    @GetMapping("/registration")
+    public String showAddUser(User user) {
+        return "registration";
+    }
+
+
 
 }

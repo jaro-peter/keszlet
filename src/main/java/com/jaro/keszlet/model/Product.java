@@ -1,11 +1,23 @@
-package com.jaro.keszlet;
+package com.jaro.keszlet.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-@Data
+import java.util.UUID;
 
-public class PruductDto {
+@Entity
+public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID )
+    private UUID id;
     private String nev;
     private int ar;
 
