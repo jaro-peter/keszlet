@@ -29,12 +29,14 @@ public class UserController {
         user.setEmail(userDto.getEmail());
         user.setJelszo(userDto.getJelszo());
         userRepository.save(user);
-        return "redirect:/";
+        return "redirect:/users";
     }
+
+
 
     @GetMapping("/users")
-    public List<User> getUser(){
-        return userRepository.findAll();
+    public String showUsers(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "user-list";
     }
-
 }
