@@ -27,11 +27,12 @@ public class KeszletController {
     @GetMapping("/")
     public String showProducts(Model model) {
         model.addAttribute("products", keszletRepository.findAll());
-        return "index";
+        return "product-list";
     }
 
     @GetMapping("/new-product")
     public String showSignUpForm(Product product) {
+
         return "add-product";
     }
 
