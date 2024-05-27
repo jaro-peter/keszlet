@@ -3,7 +3,7 @@ package com.jaro.keszlet.controller;
 import com.jaro.keszlet.repository.KeszletRepository;
 import com.jaro.keszlet.model.Product;
 import com.jaro.keszlet.model.PruductDto;
-import com.jaro.keszlet.model.User;
+import com.jaro.keszlet.service.KeszletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,28 +17,21 @@ import java.util.List;
 
 public class KeszletController {
 
-    private final KeszletRepository keszletRepository;
-
-    @Autowired
-    public KeszletController(KeszletRepository keszletRepository) {
-        this.keszletRepository = keszletRepository;
+    private final KeszletService keszletService;
+@Autowired
+    public KeszletController(KeszletService keszletService) {
+        this.keszletService = keszletService;
     }
 
     @GetMapping("/")
     public String showProducts(Model model) {
-        model.addAttribute("products", keszletRepository.findAll());
+        model.addAttribute("products", keszletService.findAllProducts());
         return "product-list";
     }
 
     @GetMapping("/new-product")
-    public String showSignUpForm(Product product) {
-
+    public String showAddProductForm(Product product) {
         return "add-product";
-    }
-
-    @GetMapping("/products")
-    public List<Product> getPruducts() {
-        return keszletRepository.findAll();
     }
 
     @PostMapping("/product")
@@ -47,13 +40,10 @@ public class KeszletController {
         product.setNev(pruductDto.getNev());
         product.setAr(pruductDto.getAr());
         product.setMennyiseg(pruductDto.getMennyiseg());
-        keszletRepository.save(product);
+        keszletService.saveProduct(product);
         return "redirect:/";
     }
-    @GetMapping("/registration")
-    public String showAddUser(User user) {
-        return "registration";
-    }
+
 
 
 

@@ -3,6 +3,7 @@ package com.jaro.keszlet.controller;
 import com.jaro.keszlet.model.User;
 import com.jaro.keszlet.model.UserDto;
 import com.jaro.keszlet.repository.UserRepository;
+import com.jaro.keszlet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +16,11 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("/user")
@@ -28,15 +29,18 @@ public class UserController {
         user.setNev(userDto.getNev());
         user.setEmail(userDto.getEmail());
         user.setJelszo(userDto.getJelszo());
-        userRepository.save(user);
+        userService.saveUser(user);
         return "redirect:/users";
     }
 
-
-
     @GetMapping("/users")
     public String showUsers(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userService.findAllUsers());
         return "user-list";
+    }
+
+    @GetMapping("/registration")
+    public String showAddUser(User user) {
+        return "registration";
     }
 }
