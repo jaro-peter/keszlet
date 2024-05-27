@@ -1,7 +1,6 @@
 package com.jaro.keszlet.model;
 
 import lombok.Data;
-import lombok.Setter;
 
 @Data
 

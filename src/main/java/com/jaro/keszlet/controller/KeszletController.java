@@ -1,6 +1,5 @@
 package com.jaro.keszlet.controller;
 
-import com.jaro.keszlet.repository.KeszletRepository;
 import com.jaro.keszlet.model.Product;
 import com.jaro.keszlet.model.PruductDto;
 import com.jaro.keszlet.service.KeszletService;
@@ -11,14 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-
-@Controller       //@Restcontroller
-
+@Controller
 public class KeszletController {
 
     private final KeszletService keszletService;
-@Autowired
+
+    @Autowired
     public KeszletController(KeszletService keszletService) {
         this.keszletService = keszletService;
     }
@@ -43,8 +40,6 @@ public class KeszletController {
         keszletService.saveProduct(product);
         return "redirect:/";
     }
-
-
 
 
 }
